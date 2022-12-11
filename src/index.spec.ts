@@ -1,11 +1,40 @@
-// @ts-ignore see https://github.com/jest-community/jest-extended#setup
-import * as matchers from "jest-extended";
-expect.extend(matchers);
+import { computeDiamond, generateLineOfDiamond } from ".";
 
-it("That's a test!", function () {
-  expect(1 + 1).toEqual(2);
+describe("computeDiamondTest", () => {
+  it("should return a symbol if n = 1", function () {
+    expect(computeDiamond(1)).toEqual([["*"]]);
+  });
+
+  it("should return a symbol if n = 3", function () {
+    expect(computeDiamond(3)).toEqual([
+      [" ", "*", " "],
+      ["*", "*", "*"],
+      [" ", "*", " "],
+    ]);
+  });
+
+  it("should return a symbol if n = 5", function () {
+    expect(computeDiamond(5)).toEqual([
+      [" ", " ", "*", " ", " "],
+      [" ", "*", "*", "*", " "],
+      ["*", "*", "*", "*", "*"],
+      [" ", "*", "*", "*", " "],
+      [" ", " ", "*", " ", " "],
+    ]);
+  });
 });
 
-it("jest-extended is included", function () {
-  expect([1, 0]).toIncludeSameMembers([0, 1]);
+describe("generateMiddleLineOfDiamond", () => {
+  it("should return a line full of * if n = 1", function () {
+    expect(generateLineOfDiamond(1, 0)).toEqual(["*"]);
+  });
+  it("should return a line full of * if n = 3", function () {
+    expect(generateLineOfDiamond(3, 1)).toEqual(["*", "*", "*"]);
+  });
+  it("should return the first line as - * - if n = 3", function () {
+    expect(generateLineOfDiamond(3, 0)).toEqual([" ", "*", " "]);
+  });
+  it("should return the first line as - * - if n = 3", function () {
+    expect(generateLineOfDiamond(5, 1)).toEqual([" ", "*", "*", "*", " "]);
+  });
 });
